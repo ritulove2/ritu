@@ -3,17 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sadia Afrin Ritu - Portfolio</title>
+    <title>Sadia Afrin Ritu</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* বেসিক সেটআপ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* বেসিক স্টাইল */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background-color: #000;
             font-family: 'Rajdhani', sans-serif;
@@ -24,57 +19,41 @@
             align-items: center;
             color: white;
         }
-
-        /* ব্যাকগ্রাউন্ড ক্যানভাস */
-        canvas {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        /* মেইন কার্ড ডিজাইন */
+        canvas { display: block; position: absolute; top: 0; left: 0; z-index: -1; }
+        
+        /* মেইন কার্ড */
         .container {
             text-align: center;
             z-index: 1;
             width: 90%;
             max-width: 400px;
-            background: rgba(0, 20, 0, 0.7); /* হালকা সবুজ আভা */
+            background: rgba(0, 20, 0, 0.75);
             padding: 40px 20px;
             border-radius: 20px;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(5px);
             border: 1px solid rgba(0, 255, 0, 0.3);
             box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
         }
-
-        /* প্রোফাইল ছবি */
         .profile-pic {
             width: 140px;
             height: 140px;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid #0f0;
-            box-shadow: 0 0 25px #0f0; /* গ্লো এফেক্ট */
+            box-shadow: 0 0 25px #0f0;
             margin-bottom: 15px;
             transition: transform 0.3s;
         }
-
-        .profile-pic:hover {
-            transform: scale(1.05);
-        }
-
-        /* নাম এবং ইউজারনেম */
+        .profile-pic:hover { transform: scale(1.05); }
         .name {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.6rem;
-            color: #ffd700; /* গোল্ডেন কালার */
+            color: #ffd700;
             text-transform: uppercase;
             margin-bottom: 5px;
             text-shadow: 0 0 10px #ffd700;
             letter-spacing: 2px;
         }
-
         .username {
             color: #0ff;
             font-size: 1rem;
@@ -82,21 +61,13 @@
             letter-spacing: 1px;
             text-shadow: 0 0 5px #0ff;
         }
-
-        /* লিংক বাটন কন্টেইনার */
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* নিওন বাটন স্টাইল */
+        .links { display: flex; flex-direction: column; gap: 15px; }
         .btn {
             text-decoration: none;
             color: #0ff;
             padding: 12px 0;
             border: 2px solid #0ff;
-            border-radius: 50px; /* রাউন্ড বাটন */
+            border-radius: 50px;
             font-weight: bold;
             font-size: 1.1rem;
             font-family: 'Orbitron', sans-serif;
@@ -105,12 +76,9 @@
             transition: 0.3s;
             background: rgba(0, 0, 0, 0.6);
             box-shadow: 0 0 8px #0ff, inset 0 0 5px #0ff;
-            position: relative;
-            overflow: hidden;
+            cursor: pointer;
             display: block;
-            width: 100%;
         }
-
         .btn:hover {
             background: #0ff;
             color: #000;
@@ -118,7 +86,45 @@
             transform: translateY(-2px);
         }
 
-        /* মোবাইল রেস্পন্সিভ */
+        /* --- About Me পপ-আপ (Modal) স্টাইল --- */
+        .modal {
+            display: none; /* শুরুতে লুকানো থাকবে */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: rgba(0, 30, 0, 0.9);
+            border: 2px solid #0f0;
+            padding: 30px;
+            border-radius: 15px;
+            width: 85%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0, 255, 0, 0.3);
+            position: relative;
+        }
+        .modal h2 { color: #fff; margin-bottom: 20px; font-family: 'Orbitron'; }
+        .modal p { color: #ddd; line-height: 1.6; margin-bottom: 30px; font-size: 1.1rem; }
+        .close-btn {
+            background: #f00;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Orbitron';
+            box-shadow: 0 0 10px #f00;
+        }
+        
         @media (max-width: 400px) {
             .name { font-size: 1.3rem; }
             .btn { font-size: 0.9rem; padding: 10px 0; }
@@ -131,73 +137,76 @@
     <canvas id="matrix"></canvas>
 
     <div class="container">
+        
         <img src="https://i.postimg.cc/zGnDwYFP/1763804237297.png" alt="Profile Picture" class="profile-pic">
         
         <h1 class="name">Jahid Hassan Rinkq</h1>
         <p class="username">@rinkq2</p>
 
         <div class="links">
-            <a href="https://github.com" class="btn">Github</a>
-            <a href="https://www.facebook.com/randomjhr/" class="btn">FB Page</a>
-            <a href="https://www.facebook.com/rinkq2/" class="btn">FB Profile</a>
-            <a href="#" class="btn">Telegram</a>
-            <a href="#" class="btn">About Me</a>
+            <a href="https://github.com" target="_blank" class="btn">Github</a>
+            
+            <a href="https://www.facebook.com/rinkq2/" target="_blank" class="btn">Facebook</a>
+            
+            <a href="https://t.me/rinkq1" target="_blank" class="btn">Telegram</a>
+            
+            <a onclick="openModal()" class="btn">About Me</a>
+        </div>
+    </div>
+
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <h2>About Me</h2>
+            <p>
+                Hi, I am <strong>Jahid Jassan Rinkq</strong>.<br><br>
+                I am a passionate learner who loves exploring technology. 
+                My goal is to learn new things and create meaningful memories. 
+                Thanks for visiting my profile!
+            </p>
+            <button class="close-btn" onclick="closeModal()">CLOSE</button>
         </div>
     </div>
 
     <script>
+        // ম্যাট্রিক্স এনিমেশন কোড
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
-
-        // স্ক্রিন সাইজ সেট করা
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
-        // আপনার নির্দিষ্ট টেক্সট
-        const customText = "SADIA AFRIN RITU  "; // শেষে স্পেস দেওয়া হয়েছে যাতে গ্যাপ থাকে
+        const customText = "SADIA AFRIN RITU  "; 
         const fontSize = 18;
         const columns = canvas.width / fontSize;
-
         const drops = [];
-        // কলামগুলোর প্রাথমিক অবস্থান
-        for(let x = 0; x < columns; x++) {
-            drops[x] = 1;
-        }
-
+        for(let x = 0; x < columns; x++) { drops[x] = 1; }
+        
         const draw = () => {
-            // ট্রেইল এফেক্ট তৈরি করার জন্য হালকা কালো ব্যাকগ্রাউন্ড
             ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#0F0'; // লেখার রঙ (Matrix Green)
+            ctx.fillStyle = '#0F0';
             ctx.font = 'bold ' + fontSize + 'px monospace';
-
             for(let i = 0; i < drops.length; i++) {
-                // টেক্সট থেকে অক্ষর বাছাই করা (ক্রমিক অনুযায়ী)
-                // drops[i] হলো বর্তমান row সংখ্যা। সেই অনুযায়ী অক্ষর বাছাই হবে।
                 const textIndex = Math.floor(drops[i]) % customText.length;
                 const text = customText.charAt(textIndex);
-
-                // অক্ষর ড্র করা
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                // রেন্ডমলি ড্রপ রিসেট করা (যাতে সব এক সাথে না নামে)
                 if(drops[i] * fontSize > canvas.height && Math.random() > 0.98) {
                     drops[i] = 0;
                 }
-
                 drops[i]++;
             }
         };
-
-        // এনিমেশন স্পিড
         setInterval(draw, 40);
-
-        // উইন্ডো রিসাইজ হলে ঠিক করা
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
+
+        // About Me পপ-আপ কন্ট্রোল করার কোড
+        function openModal() {
+            document.getElementById("aboutModal").style.display = "flex";
+        }
+        function closeModal() {
+            document.getElementById("aboutModal").style.display = "none";
+        }
     </script>
 </body>
 </html>
